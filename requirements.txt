@@ -1,0 +1,6 @@
+SQLAlchemy==2.0.21
+psycopg2==2.9.7
+
+Flask==2.3.3
+Flask-Limiter==3.5.0
+schema==0.7.5

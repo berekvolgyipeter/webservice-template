@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: . # Use the Dockerfile from current directory to build the DB container
+    container_name: webservice_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
