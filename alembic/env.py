@@ -6,6 +6,11 @@ from os import getenv
 
 from app.database.models import Base
 
+
+def get_url():
+    return getenv("DB_URL")
+
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -25,10 +30,7 @@ target_metadata = Base.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-
-
-def get_url():
-    return getenv("DB_URL")
+config.set_main_option('sqlalchemy.url', get_url())
 
 
 def run_migrations_offline() -> None:
