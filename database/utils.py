@@ -2,8 +2,8 @@ from typing import List, Union, Type
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.constants import DB_URL
 from database.models import Base, Driver, Result
+from app.constants import DB_URL
 from app.exceptions import DriverNotFound
 from app.schemas.drivers import DriversIn
 from app.schemas.results import ResultsIn
