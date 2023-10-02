@@ -1,6 +1,6 @@
 from app.schemas.results import ResultsIn
 from app. constants import STATUS_OK
-from database import utils as db_utils
+from app.database import utils as db_utils
 
 
 def list_results(results_in: ResultsIn):

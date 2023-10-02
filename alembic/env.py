@@ -4,7 +4,7 @@ from sqlalchemy import pool
 from alembic import context
 from os import getenv
 
-from database.models import Base
+from app.database.models import Base
 
 
 def get_url():
