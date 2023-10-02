@@ -1,5 +1,5 @@
 from app.schemas.drivers import DriversIn
-from app.database import utils as db_utils
+from database import utils as db_utils
 
 
 def list_drivers(drivers_in: DriversIn):
