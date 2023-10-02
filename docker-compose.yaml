@@ -4,7 +4,7 @@ services:
   postgres:
     build:
       context: .
-      dockerfile: ./database/Dockerfile
+      dockerfile: app/database/Dockerfile
     container_name: webservice_db
     ports:
       - "5432:5432"

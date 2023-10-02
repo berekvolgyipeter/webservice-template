@@ -2,7 +2,7 @@ from flask import Blueprint
 
 from app.constants import DEFAULT_RATE_LIMIT
 from app.utils import get_params
-from app.utils.global_objects import limiter
+from app.global_objects import limiter
 from app.schemas import drivers as schema
 from app.interactors import drivers as interactor
 
