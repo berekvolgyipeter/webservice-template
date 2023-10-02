@@ -1,4 +1,4 @@
-from app.database import utils as db_utils
+from database import utils as db_utils
 from app.schemas.drivers import DriversIn
 from app.schemas.results import ResultsIn
 from scripts.initial_data import DRIVERS, RESULTS

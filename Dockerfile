@@ -1,10 +1,23 @@
-# Use the official PostgreSQL image from Docker Hub
-FROM postgres:latest
+# Use the official Python image as a parent image
+FROM python:3.11-slim
 
-# Set environment variables
-ENV POSTGRES_DB=webservice-db
-ENV POSTGRES_USER=dbuser
-ENV POSTGRES_PASSWORD=dbpass
+# Set the working directory to /app
+WORKDIR /app
 
-# Expose PostgreSQL default port
-EXPOSE 5432
+# Copy the current directory contents into the container at /app
+COPY . ./
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Make port 5000 available to the world outside this container
+EXPOSE 8080
+
+# Define environment variable
+ENV DB_URL postgresql://dbuser:dbpass@localhost:5432/webservice-db
+ENV HOST 0.0.0.0
+ENV PORT 8080
+
+# Command to run the application with Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app.main:app"]
