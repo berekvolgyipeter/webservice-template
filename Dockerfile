@@ -11,7 +11,7 @@ COPY . ./
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Make port 5000 available to the world outside this container
+# Make port 8080 available to the world outside this container
 EXPOSE 8080
 
 # Define environment variables
