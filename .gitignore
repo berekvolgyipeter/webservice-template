@@ -1,2 +1,3 @@
 /postgres-data/
 /.pytest_cache/
+.env
