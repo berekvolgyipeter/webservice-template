@@ -3,14 +3,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from app.database.models import Base, Driver, Result
-from app.constants import DB_URL
+from app.constants import POSTGRES_URL
 from app.exceptions import DriverNotFound
 from app.schemas.drivers import DriversIn
 from app.schemas.results import ResultsIn
 
 
 # Create a SQLAlchemy engine
-__engine = create_engine(DB_URL)
+__engine = create_engine(POSTGRES_URL)
 
 # Create a session to interact with the database
 __Session = sessionmaker(bind=__engine)

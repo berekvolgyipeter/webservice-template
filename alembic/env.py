@@ -2,13 +2,9 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
-from os import getenv
 
+from app.constants import POSTGRES_URL
 from app.database.models import Base
-
-
-def get_url():
-    return getenv("DB_URL")
 
 
 # this is the Alembic Config object, which provides
@@ -30,7 +26,7 @@ target_metadata = Base.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-config.set_main_option('sqlalchemy.url', get_url())
+config.set_main_option('sqlalchemy.url', POSTGRES_URL)
 
 
 def run_migrations_offline() -> None:
@@ -45,7 +41,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = get_url()
+    url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
         target_metadata=target_metadata,
