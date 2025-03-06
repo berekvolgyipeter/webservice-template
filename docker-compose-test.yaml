@@ -1,0 +1,12 @@
+services:
+  postgres-test:
+    build:
+      context: .
+      dockerfile: app/database/Dockerfile
+    container_name: webservice_db_test
+    environment:
+      - POSTGRES_DB=webservice-db-test
+      - POSTGRES_USER=dbuser-test
+      - POSTGRES_PASSWORD=dbpass-test
+    ports:
+      - "7654:5432"

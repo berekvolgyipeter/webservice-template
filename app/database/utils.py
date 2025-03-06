@@ -1,30 +1,10 @@
 from typing import List, Union, Type
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
-from app.database.models import Base, Driver, Result
-from app.constants import POSTGRES_URL
+from app.database import get_session
+from app.database.models import Driver, Result
 from app.exceptions import DriverNotFound
 from app.schemas.drivers import DriversIn
 from app.schemas.results import ResultsIn
-
-
-# Create a SQLAlchemy engine
-__engine = create_engine(POSTGRES_URL)
-
-# Create a session to interact with the database
-__Session = sessionmaker(bind=__engine)
-__session = __Session()
-
-
-def create_tables():
-    # Create the tables based on your model definitions
-    # (create tables for all models that are associated with the Base using inheritance)
-    Base.metadata.create_all(__engine)
-
-
-def get_session():
-    return __session
 
 
 def get_driver(name: str) -> Union[Driver, None]:
