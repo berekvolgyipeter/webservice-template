@@ -1,5 +1,5 @@
-from schemas.drivers import DriversIn
 import app.interactors.drivers as interactor
+from app.schemas.drivers import DriversIn
 
 
 def test_drivers(mock_session):
