@@ -17,10 +17,10 @@ jobs:
       postgres-test:
         image: postgres:latest
         env:
-          POSTGRES_DB=webservice-db-test
-          POSTGRES_USER=dbuser-test
-          POSTGRES_PASSWORD=dbpass-test
-          POSTGRES_PORT=7654
+          POSTGRES_DB: webservice-db-test
+          POSTGRES_USER: dbuser-test
+          POSTGRES_PASSWORD: dbpass-test
+          POSTGRES_PORT: 7654
         ports:
           - "7654:5432"
         options: >-
