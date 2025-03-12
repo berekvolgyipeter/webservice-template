@@ -21,3 +21,21 @@ delete-db :; rm -rf postgres-data/
 # compose test db
 up-test-db :; docker-compose -f docker-compose-test.yaml up -d
 down-test :; docker-compose -f docker-compose-test.yaml down
+
+# ---------- KUBERNETES ----------
+
+# minikube
+minikube-start :; minikube start --driver docker
+minikube-stop :; minikube stop
+
+# kubectl
+get-node :; kubectl get node
+get-all :; kubectl get all
+delete-all :; kubectl delete all --all
+
+# k8s deployment sequence
+deploy-postgres-config :; kubectl apply -f k8s-deployment/postgres-config.yaml
+deploy-postgres-secret :; kubectl apply -f k8s-deployment/postgres-secret.yaml
+deploy-postgres :; kubectl apply -f k8s-deployment/postgres-secret.yaml
+deploy-app-config :; kubectl apply -f k8s-deployment/app-config.yaml
+deploy-app :; kubectl apply -f k8s-deployment/app.yaml
