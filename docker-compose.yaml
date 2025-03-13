@@ -16,6 +16,15 @@ services:
       context: .
     env_file:
       - .env
+    environment:
+      # (To allow the Flask application container to connect to the PostgreSQL database container,
+      # we use the service name defined in docker-compose.yml instead of "localhost" as the database host.
+      # By default, Docker Compose sets up a network
+      # that allows containers to resolve each other's service names as hostnames.)
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - APP_HOST=0.0.0.0
+      - APP_PORT=8080
     ports:
       # expose port 8080 on the host, which is mapped to port 8080 within the container
       # (the Gunicorn application runs on port 8080 inside the container)

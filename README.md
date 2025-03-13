@@ -33,3 +33,19 @@ Before running the tests, we must create the test database:
 
 This time we don't have to do any migrations, there's a pytest fixture which takes care about this.
 Now the tests are ready to run.
+
+## Kubernetes deployment
+
+1. create a single-node k8s cluster with minikube
+2. deploy postgres config
+3. deploy postgres secrets
+4. deploy postgres
+5. deploy app config
+6. deploy app
+7. get the URL of the app
+
+- all of these steps are listed in the `Makefile`
+- the database uses a different volume inside the cluster
+- this deployment is very simple
+  - only 1 replica for the app deployment
+  - postgres is also a 1 replica deployment instead of a stateful set
