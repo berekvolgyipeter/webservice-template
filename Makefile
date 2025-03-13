@@ -27,11 +27,12 @@ down-test :; docker-compose -f docker-compose-test.yaml down
 # minikube
 minikube-start :; minikube start --driver docker
 minikube-stop :; minikube stop
+minikube-app-url :; minikube service app-service --url
 
 # kubectl
-get-node :; kubectl get node
-get-all :; kubectl get all
-delete-all :; kubectl delete all --all
+kubectl-get-node :; kubectl get node
+kubectl-get-all :; kubectl get all
+kubectl-delete-all :; kubectl delete all --all
 
 # k8s deployment sequence
 deploy-postgres-config :; kubectl apply -f k8s-deployment/postgres-config.yaml
