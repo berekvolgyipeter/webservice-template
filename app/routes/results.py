@@ -13,7 +13,7 @@ api = Blueprint('results', __name__, url_prefix="/results")
 @api.get("")
 @limiter.limit(DEFAULT_RATE_LIMIT)
 @get_params
-def list_results(params: dict) -> (dict, int):
+def list_results(params: dict) -> tuple[dict, int]:
     results_in = schema.validate_optional_results_in(params)
     response = interactor.list_results(results_in)
     return response, 200
@@ -21,7 +21,7 @@ def list_results(params: dict) -> (dict, int):
 
 @api.post("")
 @get_params
-def add_result(params: dict) -> (dict, int):
+def add_result(params: dict) -> tuple[dict, int]:
     results_in = schema.validate_all_results_in(params)
     response = interactor.add_result(results_in)
     return response, 200

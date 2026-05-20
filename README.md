@@ -1,10 +1,28 @@
 # webservice-template
 
-This project implements a REST API webservice using PostgreSQL and Flask.
-It is running in 2 containers: one for the application and one for the database.
-The application is configured to run on a local machine, using `.env` file to store the secrets.
-While this is not the safest way to store credentials, this project is for demonstration only.
-In production, please make sure to store your secrets in encrypted format in a safe place.
+A small REST API template built on Flask, SQLAlchemy and PostgreSQL, packaged with Docker. The schema models a Formula 1 domain (drivers and their grand prix results) for demonstration.
+
+The app and database run in separate containers. Configuration is loaded from a local `.env` file — adequate for a demo, but production deployments should source secrets from a managed store.
+
+## Stack
+
+- Flask, Flask-Limiter, Gunicorn
+- PostgreSQL, SQLAlchemy, Alembic (migrations)
+- `schema` for request validation
+- pytest for tests
+- Docker, Docker Compose
+
+## Layout
+
+```
+app/
+  routes/        Flask blueprints (HTTP layer)
+  schemas/       request validation and input DTOs
+  interactors/   orchestration between routes and the database
+  database/      SQLAlchemy models and query helpers
+alembic/         migrations
+tests/           pytest suite, mirrors app/
+```
 
 ## Dependencies
 
@@ -12,24 +30,42 @@ In production, please make sure to store your secrets in encrypted format in a s
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [Python 3.11](https://www.python.org/downloads/release/python-31111/)
 
-## How to use
+## Getting started
 
-1. Create a `.env` file and specify all the environment variables listed in `.env.example`
-2. Install requirements
-   - `pip3 install -r requirements.txt`
-2. Create the containers
-    - `docker-compose up`
-3. Since this is the first time the database is created, we need to apply migrations:
-    - `alembic upgrade head`
-    - more about migrations in `alembic/README.md`
-4. We have a webservice running at `localhost:8080`
+1. Copy `.env.example` to `.env` and fill in the variables.
+2. Install Python dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+3. Build and start the containers:
+   ```sh
+   docker-compose up
+   ```
+4. Apply migrations (only required on a fresh database):
+   ```sh
+   alembic upgrade head
+   ```
+   See [`alembic/README.md`](alembic/README.md) for the migration workflow.
+5. The service is reachable at `http://localhost:8080`.
+
+## Endpoints
+
+| Method | Path       | Purpose                      |
+|--------|------------|------------------------------|
+| GET    | `/`        | Health check                 |
+| GET    | `/drivers` | List drivers (filterable)    |
+| POST   | `/drivers` | Create a driver              |
+| GET    | `/results` | List grand prix results      |
+| POST   | `/results` | Record a result for a driver |
 
 ## Testing
 
-For the testing we use a different database.
-Before running the tests, we must create the test database:
+Tests run against a dedicated database container:
 
-`docker-compose -f docker-compose-test.yaml up`
+```sh
+pip install -r requirements_test.txt
+docker-compose -f docker-compose-test.yaml up -d
+pytest
+```
 
-This time we don't have to do any migrations, there's a pytest fixture which takes care about this.
-Now the tests are ready to run.
+Alembic migrations are applied automatically by a session-scoped pytest fixture, so no manual setup is required between runs.

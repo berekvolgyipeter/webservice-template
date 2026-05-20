@@ -2,3 +2,7 @@
 /.pytest_cache/
 /.idea/
 .env
+.venv/
+__pycache__
+.DS_Store
+.claude/.code-reviews/
