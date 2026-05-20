@@ -13,7 +13,7 @@ api = Blueprint('drivers', __name__, url_prefix="/drivers")
 @api.get("")
 @limiter.limit(DEFAULT_RATE_LIMIT)
 @get_params
-def list_drivers(params: dict) -> (dict, int):
+def list_drivers(params: dict) -> tuple[dict, int]:
     drivers_in = schema.validate_optional_drivers_in(params)
     response = interactor.list_drivers(drivers_in)
     return response, 200
@@ -21,7 +21,7 @@ def list_drivers(params: dict) -> (dict, int):
 
 @api.post("")
 @get_params
-def add_driver(params: dict) -> (dict, int):
+def add_driver(params: dict) -> tuple[dict, int]:
     drivers_in = schema.validate_all_drivers_in(params)
     response = interactor.add_driver(drivers_in)
     return response, 200
