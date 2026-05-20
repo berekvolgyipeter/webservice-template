@@ -68,22 +68,16 @@ docker-compose -f docker-compose-test.yaml up -d
 pytest
 ```
 
-This time we don't have to do any migrations, there's a pytest fixture which takes care about this.
-Now the tests are ready to run.
+Alembic migrations are applied automatically by a session-scoped pytest fixture, so no manual setup is required between runs.
 
 ## Kubernetes deployment
 
-1. create a single-node k8s cluster with minikube
-2. deploy postgres config
-3. deploy postgres secrets
-4. deploy postgres
-5. deploy app config
-6. deploy app
-7. get the URL of the app
+Manifests live in `k8s-deployment/` and target a local single-node cluster (minikube). The corresponding Make targets are shown in parentheses.
 
-- all of these steps are listed in the `Makefile`
-- the database uses a different volume inside the cluster
-- this deployment is very simple
-  - only 1 replica for the app deployment
-  - postgres is also a 1 replica deployment instead of a stateful set
-Alembic migrations are applied automatically by a session-scoped pytest fixture, so no manual setup is required between runs.
+1. Start the cluster (`make minikube-start`).
+2. Apply the Postgres ConfigMap and Secret (`make deploy-postgres-config`, `make deploy-postgres-secret`).
+3. Deploy Postgres (`make deploy-postgres`).
+4. Apply the app ConfigMap and deploy the app (`make deploy-app-config`, `make deploy-app`).
+5. Resolve the app's URL (`make minikube-app-url`).
+
+The topology is intentionally minimal: a single-replica app Deployment and a single-replica Postgres Deployment (not a StatefulSet) backed by its own PersistentVolume inside the cluster. Suitable for local exercises, not for production.

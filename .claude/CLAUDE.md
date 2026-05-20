@@ -17,3 +17,4 @@ Rules in `.claude/rules/` contain curated architectural knowledge: design intent
 | `database.md` | `app/database/**` | SQLAlchemy layer: shared `Base`, module-private engine/sessionmaker, models with `to_dict()`, query helpers |
 | `alembic.md` | `alembic/**`, `alembic.ini` | Migration env wiring (uses app's `Base.metadata` and `POSTGRES_URL`) and autogenerate workflow |
 | `tests.md` | `tests/**`, `pytest.ini`, `docker-compose-test.yaml` | Pytest patterns: session-scoped migration fixture, per-test `mock_session`, `mock_client`, layered patch targets |
+| `deployment.md` | `Dockerfile`, `docker-compose.yaml`, `k8s-deployment/**.yaml` | Container/orchestration topology: app + Postgres as separate workloads, env-contract flow into `app.constants`, compose vs k8s wiring |
