@@ -29,4 +29,3 @@ App and Postgres ship as separate container workloads, wired together by environ
 ## Gotchas
 
 - `.env` ships `POSTGRES_HOST=localhost` for host-process runs; the compose `POSTGRES_HOST=postgres` override is what makes the containerised app reach the DB. Don't move that into `.env`.
-- `make deploy-postgres` applies `postgres-secret.yaml` instead of `postgres.yaml` — known template mismatch; apply `k8s-deployment/postgres.yaml` directly when bringing up the DB workload.

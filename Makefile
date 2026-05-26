@@ -37,6 +37,6 @@ kubectl-delete-all :; kubectl delete all --all
 # k8s deployment sequence
 deploy-postgres-config :; kubectl apply -f k8s-deployment/postgres-config.yaml
 deploy-postgres-secret :; kubectl apply -f k8s-deployment/postgres-secret.yaml
-deploy-postgres :; kubectl apply -f k8s-deployment/postgres-secret.yaml
+deploy-postgres :; kubectl apply -f k8s-deployment/postgres.yaml
 deploy-app-config :; kubectl apply -f k8s-deployment/app-config.yaml
 deploy-app :; kubectl apply -f k8s-deployment/app.yaml
